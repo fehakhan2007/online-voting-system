@@ -3,6 +3,9 @@ import dbConnect from '@/lib/mongodb';
 import Candidate from '@/models/Candidate';
 import Vote from '@/models/Vote';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function POST(request: Request) {
   try {
     await dbConnect();
@@ -27,6 +30,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ message: 'Vote submitted successfully' });
   } catch (error) {
+    console.error('Error submitting vote:', error);
     return NextResponse.json({ error: 'Failed to submit vote' }, { status: 500 });
   }
 }
